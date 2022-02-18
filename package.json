@@ -4,11 +4,13 @@
   "description": "Server used to query and mutate club stats Dgraph database",
   "main": "src/app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.ts"
   },
   "author": "Adam pohl",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^17.0.18",
     "typescript": "^4.5.5"
   }
 }
