@@ -1,7 +1,7 @@
 import dgraph, { DgraphClient, TxnContext } from "dgraph-js";
 import * as data from "./export.json";
-import {connectToServer, runQuery} from "./wrapper";
-import { addMessage } from "./wrapper";
+import { Connection } from "./wrapper";
+// import { addMessage } from "./wrapper";
 
 
 // Must be run to create a new client stub which is then used to create a dgraph client
@@ -59,12 +59,18 @@ async function createData(dgraphClient: any) {
 
 async function main() {
     // Create clientStub
-    const dgraphClientStub = newClientStub();
+    // const dgraphClientStub = newClientStub();
     // Create client from clientStub
-    const dgraphClient = newClient(dgraphClientStub);
+    // const dgraphClient = newClient(dgraphClientStub);
 
-    const txn = dgraphClient.newTxn()
-    const mu = new dgraph.Mutation();
+    var conn: Connection = new Connection('localhost:9080');
+    const p = {
+        body: "This is the message"
+    };
+    conn.addMessage(p)
+
+    // const txn = dgraphClient.newTxn()
+    // const mu = new dgraph.Mutation();
     
     // addMessage(data.messages[0], txn, mu);
 
@@ -79,11 +85,11 @@ const query = `{
     const vars = { $a: "Alice" };
     // runQuery(txn, query)
     // Actually run transaction
-    const res = await runQuery(txn,query, vars);
-    (console.log(JSON.stringify(res.getJson())))
+    // const res = await runQuery(txn,query, vars);
+    // (console.log(JSON.stringify(res.getJson())))
     // console.log(JSON.stringify(res.getJson()))
 
-    dgraphClientStub.close();
+    conn.close();
 }
 
 main()
