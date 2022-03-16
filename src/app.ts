@@ -1,6 +1,6 @@
-import dgraph from "dgraph-js";
+import dgraph, { DgraphClient, TxnContext } from "dgraph-js";
 import * as data from "./export.json";
-import {connectToServer} from "./wrapper";
+import {connectToServer, runQuery} from "./wrapper";
 import { addMessage } from "./wrapper";
 
 
@@ -65,11 +65,24 @@ async function main() {
 
     const txn = dgraphClient.newTxn()
     const mu = new dgraph.Mutation();
-    addMessage(data.messages[0], txn, mu);
+    
+    // addMessage(data.messages[0], txn, mu);
 
+    // Run query.
+const query = `{
+    node(func: has(name))
+    {
+      name
+    }
+}`;
+
+    const vars = { $a: "Alice" };
+    // runQuery(txn, query)
     // Actually run transaction
-    await createData(dgraphClient);
-    // Close connection to the server
+    const res = await runQuery(txn,query, vars);
+    (console.log(JSON.stringify(res.getJson())))
+    // console.log(JSON.stringify(res.getJson()))
+
     dgraphClientStub.close();
 }
 

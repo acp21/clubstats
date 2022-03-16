@@ -1,4 +1,4 @@
-const dgraph = require("dgraph-js");
+import dgraph from "dgraph-js";
 
 export function connectToServer(endpoint : string){
     var clientStub = new dgraph.DgraphClientStub(endpoint);
@@ -15,4 +15,23 @@ export async function addMessage(message : any, txn: any, mu : any){
     finally{
         await txn.discard();
     }
+}
+
+export async function addUser(user : any, txn: dgraph.Txn, mu: any){
+
+}
+
+export async function runQuery(txn: dgraph.Txn, query: string, vars?: any){
+    
+    // Result of query
+    var res: dgraph.Response
+
+    // Check if vars have been passed
+    if(vars){
+        res = await txn.queryWithVars(query, vars)
+    }
+    else{
+        res =  await txn.query(query)
+    }
+    return res
 }
