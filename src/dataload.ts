@@ -1,6 +1,12 @@
 import { connect } from 'http2';
 import { Connection } from './connection';
-import * as data from "./export.json";
+// import * as data from "../moan.json";
+
+const fs = require('fs');
+
+let rawdata = fs.readFileSync('moan.json');
+let data = JSON.parse(rawdata);
+// console.log(student);
 
 var messages = data.messages
 
@@ -40,14 +46,17 @@ export async function loadData(conn: Connection){
             uid = foundUser.getJson().user[0].uid;
             
             var newMessage = {
-                    type: "message",
-                    body: cur.content.body,
-                    sendDate: cur.origin_server_ts,
-                    sender: {
-                        uid: uid
+                uid: uid,
+                messages: [
+                    {
+                        type: "message",
+                        body: cur.content.body,
+                        sendDate: cur.origin_server_ts
                     }
-                };
+                ]
+            };
 
+            
             await conn.runMutation(newMessage);
 
         }
