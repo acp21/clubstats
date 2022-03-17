@@ -1,9 +1,17 @@
-import dgraph, { DgraphClient, DgraphClientStub, Mutation } from "dgraph-js";
+import dgraph, { DgraphClient, DgraphClientStub, Mutation, Txn } from "dgraph-js";
 
 export class Connection {
     client: DgraphClient;
     stub: DgraphClientStub;
 
+
+        // Variables for user node
+        // type: string
+        // joined: date
+        // id: string
+        // message: rel
+        // events: rel
+        // aliases: rel
 
     constructor(endpoint: string){
         this.stub = new DgraphClientStub(endpoint);
@@ -15,29 +23,11 @@ export class Connection {
         return new dgraph.DgraphClient(clientStub);
     }
     
-    async addMessage(message: object){
-        const txn = this.client.newTxn()
-        const mu = new Mutation();
-        try{
-            mu.setSetJson(message);
-            const response = await txn.mutate(mu);
-            await txn.commit();
-            console.log("Added message");
-        }
-        finally{
-            await txn.discard();
-        }
-    }
-    
-    async addUser(user : string, txn: dgraph.Txn, mu: dgraph.Mutation){
-    
-    }
-    
-    async runQuery(txn: dgraph.Txn, query: string, vars?: object){
+    async runQuery(query: string, vars?: object){
         
         // Result of query
         var res: dgraph.Response
-    
+        const txn = this.client.newTxn()
         // Check if vars have been passed
         if(vars){
             res = await txn.queryWithVars(query, vars)
@@ -48,8 +38,17 @@ export class Connection {
         return res
     }
     
-    async runMutation(txn: dgraph.Txn, mu: dgraph.Mutation, update: object){
-    
+    async runMutation(update: object){
+        const txn = this.client.newTxn();
+        try{
+            const mu = new Mutation;
+            mu.setSetJson(update);
+            await txn.commit()
+            console.log("Committed Transaction")
+        }
+        finally{
+            await txn.discard()
+        }
     }
 
     close(){
