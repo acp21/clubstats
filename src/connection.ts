@@ -24,8 +24,7 @@ export class Connection {
 
         // type: string
         // membership: string
-        // eventDate: date
-        // 
+        // eventDate: date 
 
     constructor(endpoint: string){
         this.stub = new DgraphClientStub(endpoint);
