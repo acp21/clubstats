@@ -1,13 +1,10 @@
 import { connect } from 'http2';
 import { Connection } from './connection';
-// import * as data from "../moan.json";
 
 const fs = require('fs');
 
-let rawdata = fs.readFileSync('moan.json');
+let rawdata = fs.readFileSync('full.json');
 let data = JSON.parse(rawdata);
-// console.log(student);
-
 var messages = data.messages
 
 export async function loadData(conn: Connection){
@@ -25,13 +22,29 @@ export async function loadData(conn: Connection){
         if(type == 'm.room.member'){
             foundUser = await conn.findUser(cur.user_id.split(':', 1)[0])
             
+            // Add event if user already stored
             if(foundUser.getJson().user.length > 0){
-                // TODO: Add user event if user already exists
+                let newEvent: object = {
+                    uid: uid,
+                    events: [
+                        {
+                            type: 'event',
+                            membership: cur.content.membership,
+                            eventDate: cur.origin_server_ts
+                        }
+                    ]
+                    
+                };
+                
+                await conn.runMutation(newEvent);
+
             }
+            
+            // Add user if not already in DB
             else{
                 console.log("User not found, adding");
                 newUser = {
-                    type: 'member',
+                    type: 'user',
                     joined: cur.origin_server_ts,
                     username: cur.user_id.split(':', 1)
                 }
@@ -40,7 +53,8 @@ export async function loadData(conn: Connection){
                 console.log("Added User");
             }
         }
-    
+        
+        // If event is message, store that with proper user
         else if(type === 'm.room.message'){
             foundUser = await conn.findUser(cur.user_id.split(':', 1)[0]);
             uid = foundUser.getJson().user[0].uid;
