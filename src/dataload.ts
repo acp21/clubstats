@@ -30,12 +30,12 @@ export async function loadData(conn: Connection){
                         {
                             type: 'event',
                             membership: cur.content.membership,
-                            eventDate: cur.origin_server_ts
+                            eventDate: new Date(cur.origin_server_ts).toISOString()
                         }
                     ]
                     
                 };
-                
+
                 await conn.runMutation(newEvent);
 
             }
@@ -45,7 +45,7 @@ export async function loadData(conn: Connection){
                 console.log("User not found, adding");
                 newUser = {
                     type: 'user',
-                    joined: cur.origin_server_ts,
+                    joined: new Date(cur.origin_server_ts).toISOString(),
                     username: cur.user_id.split(':', 1)
                 }
 
@@ -65,7 +65,7 @@ export async function loadData(conn: Connection){
                     {
                         type: "message",
                         body: cur.content.body,
-                        sendDate: cur.origin_server_ts
+                        sendDate: new Date(cur.origin_server_ts).toISOString()
                     }
                 ]
             };
