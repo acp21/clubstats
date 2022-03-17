@@ -9,7 +9,8 @@ async function main() {
     var conn: Connection = new Connection('localhost:9080');
 
     // Read data from passed json file
-    await loadData(conn)
+    // await loadData(conn)
+    await conn.userTotalDays("@username");
 
     conn.close();
 }

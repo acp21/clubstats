@@ -80,6 +80,21 @@ export class Connection {
         this.stub.close();
     }
 
+    // Queries Below
+    async userTotalDays(username: string){
+        const vars = {$u: username};
+        const q = `query all($u: string){
+            user(func: eq(username, $u)){
+                uid
+                username
+                joined
+            }
+        }`;
+
+        var result = await this.runQuery(q, vars);
+        var joined = new Date(result.getJson().user[0].joined)
+        var now = new Date(Date.now())
+        var diff = (now.getTime() - joined.getTime()) / (1000 * 3600 * 24);
+        console.log(diff);
+    }
 }
-
-
