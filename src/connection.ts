@@ -11,6 +11,7 @@ export class Connection {
         // username: string
         // events: rel
         // aliases: rel
+        // messages: rel
 
         // Variables for message node
 
