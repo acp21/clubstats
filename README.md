@@ -12,3 +12,17 @@ First, the primary method of data input, the `ccawmu` bot written in python. Thi
 Second, this server is where a majority of the data processing will be done. It will handle both inserting and retrieving data from the graph database. It was implemented in Typescript as a standalone server as I believed that the complexity that would be required to achieve these goals would be more than I desired to write in a small chatroom bot.
 
 Finally, the Dgraph database itself. This is a database based off of the idea of nodes and edges. Because of this, the schema is very flexible and is much easier to append to than something like standard SQL. It also makes seeing relations between data very easy, which is one of the primary goals for this project.
+
+## Trackables
+
+ - Messages
+ - Users
+ - Room Events
+ - Bot Commands
+   - Karma
+   - Quotes
+
+## Calculables
+  - Total
+  - Events/Timeperiod
+  - Min/Max
