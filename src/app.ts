@@ -1,7 +1,4 @@
-import dgraph, { DgraphClient, TxnContext } from "dgraph-js";
 import { Connection } from "./connection";
-import { loadData } from "./dataload";
-import { load } from "@grpc/grpc-js";
 
 async function main() {
 
@@ -10,7 +7,6 @@ async function main() {
 
     // Read data from passed json file
     // await loadData(conn)
-    await conn.userTotalDays("@username");
 
     conn.close();
 }

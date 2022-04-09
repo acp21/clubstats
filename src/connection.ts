@@ -92,9 +92,26 @@ export class Connection {
         }`;
 
         var result = await this.runQuery(q, vars);
-        var joined = new Date(result.getJson().user[0].joined)
-        var now = new Date(Date.now())
+        var joined = new Date(result.getJson().user[0].joined);
+        var now = new Date(Date.now());
         var diff = (now.getTime() - joined.getTime()) / (1000 * 3600 * 24);
-        console.log(diff);
+        return diff;
+    }
+
+    async userTotalMessages(username: string){
+        const vars = {$u: username};
+        const q = `query all($u: string){
+            user(func: eq(username, $u)){
+                username
+                count(messages)
+            }
+        }`;
+
+        var result = await this.runQuery(q, vars);
+        return result.getJson().user[0]['count(messages)'];
+    }
+
+    async userMPD(username: string){
+        return await this.userTotalMessages(username) / await this.userTotalDays(username);
     }
 }

@@ -1,4 +1,3 @@
-import { connect } from 'http2';
 import { Connection } from './connection';
 
 const fs = require('fs');
@@ -76,10 +75,3 @@ export async function loadData(conn: Connection){
         }
     }
 }
-
-
-
-
-
-
-
