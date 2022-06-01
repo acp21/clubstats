@@ -17,6 +17,7 @@ export class Connection {
 
         // type: string
         // body: string
+        // eventID: string
         // sendDate: date
         // sender: rel
         
@@ -45,6 +46,16 @@ export class Connection {
         }`
         const vars = {$u: username};
         return await this.runQuery(q, vars);
+    }
+
+    async findMessage(message: string){
+        const q = `query all($m: string){
+            message(func: eq(messageID, $m)){
+                messageID
+            }
+        }`
+        const vars = {$m: message};
+        return await this.runQuery(q, vars)
     }
 
     async runQuery(query: string, vars?: object){

@@ -11,13 +11,21 @@ export async function loadData(conn: Connection){
     var cur;
     var type;
     var foundUser;
+    var foundMessageID;
     var newUser;
     var uid;
 
+    console.log('Starting to load data');
     for (let i in messages){
         cur = messages[i];
         type = cur.type;
     
+        foundMessageID = await conn.findMessage(cur.eventID)
+        if(foundMessageID.getJson().messageID){
+            console.log("Message already processsed, skipping");
+            continue;
+        }
+        console.log('Processing message');
         if(type == 'm.room.member'){
             foundUser = await conn.findUser(cur.user_id.split(':', 1)[0])
             
@@ -29,6 +37,7 @@ export async function loadData(conn: Connection){
                         {
                             type: 'event',
                             membership: cur.content.membership,
+                            eventID: cur.event_id.split(':', 1)[0],
                             eventDate: new Date(cur.origin_server_ts).toISOString()
                         }
                     ]
