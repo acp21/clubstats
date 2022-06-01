@@ -20,7 +20,9 @@ export async function loadData(conn: Connection){
         cur = messages[i];
         type = cur.type;
     
-        foundEventID = await conn.findMessage(cur.event_id)
+        foundEventID = await conn.findMessage(cur.event_id.split(':', 1)[0]);
+        // console.log(cur.content.body)
+
         if(foundEventID.getJson().eventID){
             console.log("Message already processsed, skipping");
             continue;
