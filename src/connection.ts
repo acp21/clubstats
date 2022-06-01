@@ -50,8 +50,8 @@ export class Connection {
 
     async findMessage(message: string){
         const q = `query all($m: string){
-            message(func: eq(messageID, $m)){
-                messageID
+            message(func: eq(eventID, $m)){
+                eventID
             }
         }`
         const vars = {$m: message};
