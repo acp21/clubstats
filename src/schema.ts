@@ -1,12 +1,24 @@
 import { Connection } from "./connection";
 
-export function userSchema(conn: Connection){
+
+
+function userSchema(conn: Connection){
     const schema = `username: string @index(exact) .
-                    joined: dateTime .
-                    message: [uid] .`
+                    joinDate: dateTime .
+                    message: [uid] .`;
     conn.updateSchema(schema);
 }
 
+function messageSchema(conn: Connection){
+    const schema = `messageBody: string .
+                    `
+}
+
 export async function loadSchemas(conn: Connection){
+    // All schema that will be shared between nodes initialized here
+    const sharedSchema = `nodeType: string @index(excact) .
+                          eventID: string
+                          eventDate: datetime`;
+    conn.updateSchema(sharedSchema);          
     userSchema(conn);
 }

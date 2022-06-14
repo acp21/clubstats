@@ -23,11 +23,15 @@ export async function loadData(conn: Connection){
         foundEventID = await conn.findMessage(cur.event_id.split(':', 1)[0]);
         // console.log(cur.content.body)
 
+        // Skip if event has already been loaded
         if(foundEventID.getJson().eventID){
             console.log("Message already processsed, skipping");
             continue;
         }
+
         console.log('Processing message');
+
+        // Handle member events
         if(type == 'm.room.member'){
             foundUser = await conn.findUser(cur.user_id.split(':', 1)[0])
             
@@ -37,7 +41,7 @@ export async function loadData(conn: Connection){
                     uid: uid,
                     events: [
                         {
-                            type: 'event',
+                            nodeType: 'membership',
                             membership: cur.content.membership,
                             eventID: cur.event_id.split(':', 1)[0],
                             eventDate: new Date(cur.origin_server_ts).toISOString()
@@ -47,18 +51,16 @@ export async function loadData(conn: Connection){
                 };
 
                 await conn.runMutation(newEvent);
-
             }
             
             // Add user if not already in DB
             else{
                 console.log("User not found, adding");
                 newUser = {
-                    type: 'user',
+                    nodeType: 'user',
                     joined: new Date(cur.origin_server_ts).toISOString(),
                     username: cur.user_id.split(':', 1)
                 }
-
                 await conn.runMutation(newUser);
                 console.log("Added User");
             }
@@ -73,8 +75,8 @@ export async function loadData(conn: Connection){
                 uid: uid,
                 messages: [
                     {
-                        type: "message",
-                        body: cur.content.body,
+                        nodeType: "message",
+                        messageBody: cur.content.body,
                         sendDate: new Date(cur.origin_server_ts).toISOString()
                     }
                 ]

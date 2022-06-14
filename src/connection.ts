@@ -4,10 +4,16 @@ export class Connection {
     client: DgraphClient;
     stub: DgraphClientStub;
 
+        // Shared types
+
+        // This type denotes the type of NODE, not subtype of node
+        // Every node has a nodeType value to define if it is a user node, membership node, etc
+        // nodeType: string
+
         // Variables for user node
 
-        // type: string
-        // joined: date
+        // nodeType: string
+        // joinDate: date
         // username: string
         // event: rel
         // aliase: rel
@@ -15,17 +21,17 @@ export class Connection {
 
         // Variables for message node
 
-        // type: string
-        // body: string
+        // nodeType: string
+        // messageBody: string
         // eventID: string
-        // sendDate: date
-        // sender: rel
+        // eventDate: date
         
-        // Variables for event node
+        // Variables for membership node
 
-        // type: string
+        // nodeType: string
         // membership: string
-        // eventDate: date 
+        // eventDate: date
+        // eventID: string
 
     constructor(endpoint: string){
         this.stub = new DgraphClientStub(endpoint);
