@@ -1,5 +1,6 @@
 import { Connection } from "./connection";
 import { loadData } from "./dataload"
+import { loadSchemas } from "./schema"
 
 async function main() {
 
@@ -7,7 +8,8 @@ async function main() {
     var conn: Connection = new Connection('localhost:9080');
     console.log('Connection Established!');
     // Read data from passed json file
-    await loadData(conn)
+    // await loadData(conn)
+    await loadSchemas(conn);
 
     conn.close();
 }

@@ -9,9 +9,9 @@ export class Connection {
         // type: string
         // joined: date
         // username: string
-        // events: rel
-        // aliases: rel
-        // messages: rel
+        // event: rel
+        // aliase: rel
+        // message: rel
 
         // Variables for message node
 
@@ -89,6 +89,12 @@ export class Connection {
 
     close(){
         this.stub.close();
+    }
+
+    async updateSchema(schema: string){
+        const op = new dgraph.Operation();
+        op.setSchema(schema);
+        await this.client.alter(op);
     }
 
     // Queries Below
