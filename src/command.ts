@@ -27,10 +27,40 @@ export function testCommander(){
     
     // var name: string;
     rl.question('Who are you?', (name: any) => {
-        let argv = name.split(" ");
+        let argv: Array<string> = name.split(" ");
+        argv.unshift('1', '2');
         console.log(argv);
         program.parse(argv);
+        const options = program.opts();
+        console.log(options);
         rl.close();
     });
 
+}
+
+export function createCommandParser(): Command{
+    const program: Command = new Command();
+
+    // Create base CLI program
+    program
+        .name("clubstats")
+        .description("A CLI tool to read interface with the cclub dgraph db")
+        .usage("<subcommand> [options]")
+        .version("0.0.1");
+    
+    // TODO: Ensure these debug commands have access restriction
+    program.command("load")
+        .description("Load Matrix data from a provided JSON file")
+        .argument("<file>", "File path to the JSON file to read from")
+        .action((file) => {
+            console.log("Loading from file %s", file);
+        });
+    program.command("connect")
+        .description("Connect to a dgraph database")
+        .argument("<endpoint>", "Endpoint URL for the dgraph server")
+        .action((endpoint) => {
+            console.log("Creating connection for database at %s", endpoint);
+        })
+    
+    return program
 }

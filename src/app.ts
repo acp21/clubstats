@@ -2,11 +2,13 @@ import { Connection } from "./connection";
 import { loadData } from "./dataload"
 import { loadSchemas } from "./schema"
 
-import { testCommander } from "./command"
+import { testCommander, createCommandParser } from "./command"
+import { Command } from "commander";
 
 async function main() {
 
-    testCommander();
+    let program: Command = createCommandParser();
+    program.parse();
 
     // Create connection to Dgraph server
     // var conn: Connection = new Connection('localhost:9080');
