@@ -2,16 +2,23 @@ import { Connection } from "./connection";
 import { loadData } from "./dataload"
 import { loadSchemas } from "./schema"
 
+import { testCommander } from "./command"
+
 async function main() {
 
-    
-    var conn: Connection = new Connection('localhost:9080');
+    testCommander();
+
+    // Create connection to Dgraph server
+    // var conn: Connection = new Connection('localhost:9080');
+    // load appropriate schema definitions into server
+    // await loadSchemas(conn);
+
     console.log('Connection Established!');
     // Read data from passed json file
     // await loadData(conn)
-    await loadSchemas(conn);
 
-    conn.close();
+    // Close the connection when work is finished
+    // conn.close();
 }
 
 main()

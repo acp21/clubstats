@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.5.9",
+    "commander": "^9.4.0",
     "dgraph-js": "^21.3.1"
   }
 }

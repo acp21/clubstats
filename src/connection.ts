@@ -6,7 +6,7 @@ export class Connection {
 
         // Shared types
 
-        // This type denotes the type of NODE, not subtype of node
+        // This nodeType denotes the type of NODE, not subtype of node
         // Every node has a nodeType value to define if it is a user node, membership node, etc
         // nodeType: string
 
