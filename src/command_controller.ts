@@ -11,11 +11,21 @@ export function createCommandParser(): Command{
         .description("A CLI tool to read interface with the cclub dgraph db")
         .usage("<subcommand> [options]")
         .option("-u, --user", "Limit query to single user")
+        .option("-r, --room", "Limit query to a certain room")
+        .option("-s, --start", "Time stamp of start of search, if no -e flag passed, go to current time")
+        .option("-e, --end", "Timestamp of end time, if no -s passed, start from Unix Epoch.")
         .version("0.0.1");
+    
+    program.command("average")
+        .description("Calculate the average of some calculable per time period")
+        .argument("<calculable>", "Calculable to average")
+        .action((calculable) => {
+            console.log("averaging calculable")
+        });
     
     program.command("count")
         .description("Count the total amount of some item.")
-        .argument("<countable>", "Define item to count.")
+        .argument("<calculable>", "Define item to count.")
         .action((countable) => {
             console.log(`counting countable ${countable}`);
         });
