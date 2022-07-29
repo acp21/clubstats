@@ -6,10 +6,12 @@ import { testCommander, createCommandParser } from "./command"
 import { startServer } from "./server";
 import { Command } from "commander";
 
+// Global program variable that is used to parse command throughout server
+export const program: Command = createCommandParser();
 
 async function main() {
 
-    let program: Command = createCommandParser();
+    
     // program.parse();
 
     startServer();
