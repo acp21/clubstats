@@ -1,5 +1,11 @@
 export abstract class Subcommand {
 
+    cmdName: string;
+
+    constructor(cmdName: string){
+        this.cmdName = cmdName;
+    }
+
     public run(): void{
         console.log("This is an abstract subcommand")
     }

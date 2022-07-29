@@ -48,7 +48,7 @@ export function createCommandParser(): Command{
         .argument("<file>", "File path to the JSON file to read from")
         .action((file) => {
             console.log("Loading from file %s", file);
-            let load = new Load();
+            let load = new Load("load", file);
             load.run()
         });
 
