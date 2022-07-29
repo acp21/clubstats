@@ -16,11 +16,21 @@ enum FuncType {
     HAS,   
 }
 
-class Func {
+// Define if func is to be used as root or as filter
+export enum FuncUsage {
+    ROOT,
+    FILTER
+}
 
-    type: FuncType
+// Abstract class to act as a parent for all other func classes
+export abstract class Func {
 
-    constructor(type: FuncType){
-        this.type = type;
+    // TODO: Set a method to autodefine this
+    type: FuncType | undefined;
+    usage: FuncUsage;
+    body: string = '';
+
+    constructor(usage: FuncUsage){
+        this.usage = usage;
     }
 }

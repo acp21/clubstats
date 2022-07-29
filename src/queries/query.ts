@@ -23,6 +23,16 @@ enum Fnc {
 
 export class Query {
     
+    // Each query has the following
+    // Name
+    // Root Function
+    // Return Predicates
+
+    // Each Return Predicate can have the following
+    // Filters
+    // IsEdge, has own Predicates
+
+
     vars: JSON | undefined
     // Transaction object from dgraph client
     txn: Txn
