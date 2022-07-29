@@ -2,6 +2,7 @@ import { Connection } from "./connection";
 import { loadData } from "./dataload"
 import { loadSchemas } from "./schema"
 
+
 import { testCommander, createCommandParser } from "./command"
 import { startServer } from "./server";
 import { Command } from "commander";
@@ -12,9 +13,12 @@ export const program: Command = createCommandParser();
 async function main() {
 
     
-    // program.parse();
-
-    startServer();
+    if(process.argv.length < 3){
+        startServer();
+    }
+    else{
+        program.parse();
+    }
 
 
     // Create connection to Dgraph server

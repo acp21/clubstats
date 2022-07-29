@@ -1,2 +1,1 @@
-
 // Get total membership days
