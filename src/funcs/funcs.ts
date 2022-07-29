@@ -16,6 +16,11 @@ enum FuncType {
     HAS,   
 }
 
+enum FuncBase {
+    ROOT_BASE = 'func: ',
+    FILTER_BASE = '@filter('
+}
+
 // Define if func is to be used as root or as filter
 export enum FuncUsage {
     ROOT,
@@ -32,5 +37,9 @@ export abstract class Func {
 
     constructor(usage: FuncUsage){
         this.usage = usage;
+    }
+
+    build(){
+        console.log("Abstract func build")
     }
 }

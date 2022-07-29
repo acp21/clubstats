@@ -1,4 +1,6 @@
 import { Txn } from "dgraph-js";
+import { Predicate } from "./predicate";
+import { Func } from "../funcs/funcs";
 
 // Consant strings to build queries out of
 
@@ -8,7 +10,7 @@ NAME(func: FUNC(PREDICATE, COMPARISON)){
     }
 }`
 
-const QUERY_START = '{query(';
+const QUERY_START = '{';
 
 const FUNC_START = 'func: '
 const FUNC_ALLOFTERMS = 'allofterms(';
@@ -33,29 +35,40 @@ export class Query {
     // IsEdge, has own Predicates
 
 
-    vars: JSON | undefined
+    vars: JSON | null
     // Transaction object from dgraph client
     txn: Txn
     private body: string
     
-    private fnc: Fnc | undefined
-    private predicate: string | undefined
+    name: string;
+    predicates: Array<Predicate> = []
+    root_func: Func;
+    root_directive: null;
 
-    constructor(txn: Txn, vars?: JSON){
+
+    constructor(txn: Txn, name: string, root_func: Func, root_directive = null, vars = null){
         this.txn = txn;
+        this.name = name;
         this.body = QUERY_START;
+        this.root_func = root_func;
+        this.root_directive = root_directive;
         this.vars = vars;
     }
 
-    addFunction(fnc: Fnc){
-        this.fnc = fnc;
-    }
 
     buildQuery(){
         this.body += QUERY_START;
-        if(typeof this.fnc != 'undefined'){
-            this.body += FUNC_START + this.fnc + this.predicate
-        }
+        
+    }
+
+    // Return raw body of query
+    getBody(){
+        return this.body;
+    }
+
+    // Add a predicate to this query
+    addPredicate(predicate: Predicate){
+        this.predicates.push(predicate);
     }
 
 }
