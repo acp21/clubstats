@@ -1,5 +1,6 @@
-import { Command, program } from "commander";
+import { Command } from "commander";
 import { config } from "./app";
+import { Load } from "./commands/load"
 
 export function createCommandParser(): Command{
     const program: Command = new Command();
@@ -47,6 +48,8 @@ export function createCommandParser(): Command{
         .argument("<file>", "File path to the JSON file to read from")
         .action((file) => {
             console.log("Loading from file %s", file);
+            let load = new Load();
+            load.run()
         });
 
     program.command("connect")

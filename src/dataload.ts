@@ -1,4 +1,5 @@
 import { Connection } from './connection';
+import { conn } from './app';
 
 const fs = require('fs');
 
@@ -6,7 +7,7 @@ let rawdata = fs.readFileSync('full.json');
 let data = JSON.parse(rawdata);
 var messages = data.messages
 
-export async function loadData(conn: Connection){
+export async function loadData(){
 
     var cur;
     var type;

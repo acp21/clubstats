@@ -16,8 +16,9 @@ function messageSchema(conn: Connection){
 export async function loadSchemas(conn: Connection){
     // All schema that will be shared between nodes initialized here
     const sharedSchema = `nodeType: string @index(exact) .
-                          eventID: string .
-                          eventDate: datetime .`;
+                          eventID: string @index(exact) .
+                          eventDate: datetime @index(day) .`;
     conn.updateSchema(sharedSchema);          
     userSchema(conn);
+    console.log("Schemas updated.");
 }

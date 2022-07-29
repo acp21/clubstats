@@ -11,14 +11,14 @@ import { Command } from "commander";
 // Global program variable that is used to parse command throughout server
 export const program: Command = createCommandParser();
 export const config: Configuration = new Configuration();
+export const conn: Connection = new Connection(config.endpoint);
 
 async function main() {
 
-    let conn: Connection;
     console.log(config);
     if(config.has_remote){
-        console.log("attempting to connect to the server")
-        conn = new Connection('localhost:9080');
+        console.log("Attempting to connect to the database.")
+        // conn = new Connection('localhost:9080');
         await loadSchemas(conn);
     }
     
