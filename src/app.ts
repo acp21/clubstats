@@ -4,7 +4,7 @@ import { loadSchemas } from "./schema"
 import { Configuration } from "./config"
 
 
-import { testCommander, createCommandParser } from "./command"
+import { createCommandParser } from "./command"
 import { startServer } from "./server";
 import { Command } from "commander";
 
@@ -13,6 +13,12 @@ export const program: Command = createCommandParser();
 
 async function main() {
 
+    let config: Configuration = new Configuration();
+    let conn: Connection;
+    if(config.has_remote){
+        conn = new Connection('localhost:9080');
+        await loadSchemas(conn);
+    }
     
     if(process.argv.length < 3){
         startServer();
@@ -33,7 +39,6 @@ async function main() {
 
     // Close the connection when work is finished
     // conn.close();
-    // while(1){}
 }
 
 main()
