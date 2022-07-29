@@ -10,11 +10,32 @@ export function createCommandParser(): Command{
         .name("clubstats")
         .description("A CLI tool to read interface with the cclub dgraph db")
         .usage("<subcommand> [options]")
-        .option("-u, --user", "Limit query to single user")
+        .option("-u, --user", "Limit to one or more users | [user1,user2,user3] for multiple users.")
         .option("-r, --room", "Limit query to a certain room")
         .option("-s, --start", "Time stamp of start of search, if no -e flag passed, go to current time")
         .option("-e, --end", "Timestamp of end time, if no -s passed, start from Unix Epoch.")
         .version("0.0.1");
+
+    // TODO: Change this to check @ and # for user and member
+    // TODO: Add more boolean arguments to control what info to print
+    program.command("info")
+        .description("Print out general info about a user or a room")
+        .option("-m, --member", "Run command on a user")
+        .option("-c, --channel", "Run command on a room")
+        .option("-w, --word", "Get info on a single word instead")
+        .argument("<item>", "Item to print info about")
+        .action((item) => {
+            console.log("info");
+        })
+    
+    program.command("extremes")
+        .description("Find user with most/least of any calculable")
+        .argument("<calculable>", "Calculable to find min/max of")
+        .option("-t, --top", "Find user with maximum of any calculable")
+        .option("-b, --bottom", "Find user with minimum of any calculable")
+        .action((calculable) => {
+            console.log("Extremes");
+        });
     
     program.command("average")
         .description("Calculate the average of some calculable per time period")
