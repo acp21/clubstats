@@ -4,7 +4,7 @@ import { loadSchemas } from "./schema"
 import { Configuration } from "./config"
 
 
-import { createCommandParser } from "./command"
+import { createCommandParser } from "./command_controller"
 import { startServer } from "./server";
 import { Command } from "commander";
 
