@@ -31,15 +31,33 @@ export enum FuncUsage {
 export abstract class Func {
 
     // TODO: Set a method to autodefine this
-    type: FuncType | undefined;
+    type: FuncType | null = null;
     usage: FuncUsage;
     body: string = '';
+    definition: string = ''
 
     constructor(usage: FuncUsage){
         this.usage = usage;
     }
 
+    getBody(){
+        return this.body;
+    }
+
+    // Build up to function arguments
     build(){
-        console.log("Abstract func build")
+        switch(this.usage){
+            case FuncUsage.ROOT:
+                this.body += FuncBase.ROOT_BASE;
+                break;
+            case FuncUsage.FILTER:
+                this.body += FuncBase.FILTER_BASE;
+                break;
+            default:
+                console.log("Error: Non expected FuncUsage");
+                return
+        }
+        this.body += this.definition;
+        // this.build()
     }
 }

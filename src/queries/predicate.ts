@@ -1,9 +1,9 @@
 export class Predicate {
     name: string
-    pagination: string | undefined
+    modifier: string | undefined
 
-    constructor(name: string, aggregation?: string){
+    constructor(name: string, modifier?: string){
         this.name = name;
-        this.pagination = aggregation;
+        this.modifier = modifier;
     }
 }

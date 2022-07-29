@@ -11,6 +11,7 @@ NAME(func: FUNC(PREDICATE, COMPARISON)){
 }`
 
 const QUERY_START = '{';
+const QUERY_END = '}';
 
 const FUNC_START = 'func: '
 const FUNC_ALLOFTERMS = 'allofterms(';
