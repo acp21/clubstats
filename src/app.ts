@@ -1,6 +1,7 @@
 import { Connection } from "./connection";
 import { loadData } from "./dataload"
 import { loadSchemas } from "./schema"
+import { Configuration } from "./config"
 
 
 import { testCommander, createCommandParser } from "./command"
