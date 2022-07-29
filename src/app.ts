@@ -15,7 +15,9 @@ async function main() {
 
     let config: Configuration = new Configuration();
     let conn: Connection;
+    console.log(config);
     if(config.has_remote){
+        console.log("attempting to connect to the server")
         conn = new Connection('localhost:9080');
         await loadSchemas(conn);
     }
@@ -33,7 +35,6 @@ async function main() {
     // load appropriate schema definitions into server
     // await loadSchemas(conn);
 
-    console.log('Connection Established!');
     // Read data from passed json file
     // await loadData(conn)
 
