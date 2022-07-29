@@ -1,4 +1,5 @@
 import { Command, program } from "commander";
+import { config } from "./app";
 
 export function createCommandParser(): Command{
     const program: Command = new Command();
@@ -8,7 +9,15 @@ export function createCommandParser(): Command{
         .name("clubstats")
         .description("A CLI tool to read interface with the cclub dgraph db")
         .usage("<subcommand> [options]")
+        .option("-u, --user", "Limit query to single user")
         .version("0.0.1");
+    
+    program.command("count")
+        .description("Count the total amount of some item.")
+        .argument("<countable>", "Define item to count.")
+        .action((countable) => {
+            console.log(`counting countable ${countable}`);
+        });
     
     // TODO: Ensure these debug commands have access restriction
     program.command("debug")
@@ -18,6 +27,21 @@ export function createCommandParser(): Command{
             console.log(`running debug subcommand ${subcommand}`);
         });
 
+    // TODO: Change this to actually update the config.json file
+    program.command("config")
+        .description("Set config variables for the server")
+        .argument("<setting>", "Setting to change")
+        .argument("<value>", "Value to change setting to")
+        .action((setting, value) => {
+            switch(setting){
+                case 'endpoint':
+                    config.setEndpoint(value);
+                    break;
+                default:
+                    console.log("Invalid setting passed");
+            }
+        });
+    
     program.command("load")
         .description("Load Matrix data from a provided JSON file")
         .argument("<file>", "File path to the JSON file to read from")

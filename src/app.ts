@@ -10,10 +10,10 @@ import { Command } from "commander";
 
 // Global program variable that is used to parse command throughout server
 export const program: Command = createCommandParser();
+export const config: Configuration = new Configuration();
 
 async function main() {
 
-    let config: Configuration = new Configuration();
     let conn: Connection;
     console.log(config);
     if(config.has_remote){

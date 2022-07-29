@@ -1,7 +1,6 @@
 import { Connection } from "./connection";
 
 
-
 function userSchema(conn: Connection){
     const schema = `username: string @index(exact) .
                     joinDate: dateTime .

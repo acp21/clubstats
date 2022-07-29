@@ -8,4 +8,9 @@ export class Configuration {
         this.endpoint = settings.endpoint;
         this.has_remote = settings.has_remote;
     }
+
+    setEndpoint(endpoint: string){
+        this.endpoint;
+        settings.endpoint = endpoint;
+    }
 }
