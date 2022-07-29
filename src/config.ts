@@ -1,0 +1,3 @@
+class configuration {
+    endpoint: string
+}
