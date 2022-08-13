@@ -85,10 +85,10 @@ export function createCommandParser(): Command{
     program.command("load")
         .description("Load Matrix data from a provided JSON file")
         .argument("<file>", "File path to the JSON file to read from")
-        .action((file) => {
+        .action(async (file) => {
             console.log("Loading from file %s", file);
             let load = new Load("load", file);
-            load.run()
+            await load.run()
         });
 
     program.command("connect")
