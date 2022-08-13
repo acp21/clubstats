@@ -43,7 +43,8 @@ export class Connection {
         return new dgraph.DgraphClient(clientStub);
     }
     
-    async findUser(username: string){
+    async findUser(username: string): Promise<dgraph.Response>{
+        console.log("Looking for user" + username);
         const q = `query all($u: string){
             user(func: eq(username, $u)){
                 uid

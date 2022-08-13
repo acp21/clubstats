@@ -2,7 +2,7 @@ import { Connection } from "./connection";
 import { loadData } from "./dataload"
 import { loadSchemas } from "./schema"
 import { Configuration } from "./config"
-
+import { Load } from "./commands/load";
 
 import { createCommandParser } from "./command_controller"
 import { startServer } from "./server";
@@ -31,7 +31,8 @@ async function main() {
     else{
         program.parse();
     }
-
+    // let load 2= new Load("load", "full.json");
+    // await load.run();
 
     // Create connection to Dgraph server
     // var conn: Connection = new Connection('localhost:9080');
@@ -42,7 +43,7 @@ async function main() {
     // await loadData(conn)
 
     // Close the connection when work is finished
-    // conn.close();
+    conn.close();
 }
 
 main()

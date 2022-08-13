@@ -1,10 +1,11 @@
 import { createServer, IncomingMessage, ServerResponse, Server } from "http";
 import { program } from "./app";
-
+import { Loader } from "./loader";
 
 export function startServer(){
     const port = 5000;
     const host = 'localhost';
+    let loader = new Loader();
 
     
 
@@ -12,6 +13,7 @@ export function startServer(){
         res.setHeader("Content-Type", "text/plain");
         // Set HTTP Code as 200 by default, only change if error occurs
         switch(req.url) {
+            // Run a command on the server
             case "/command":
                 res.writeHead(200);
                 // Data storage string
@@ -28,6 +30,7 @@ export function startServer(){
 
                 res.end("Hit command");
                 break
+            // Add a new node to the server
             case "/new":
                 res.writeHead(200);
                 // Data extraction code is duplicate above as synchronicity issues prevent making
@@ -39,6 +42,7 @@ export function startServer(){
                 req.on('end', () => {
                     // Log data once all received
                     console.log(JSON.parse(message));
+                    loader.loadEventEntrypoint(JSON.parse(message));
                 })
 
                 res.end("Hit new");

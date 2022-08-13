@@ -25,12 +25,7 @@ export class Load extends AdminCommand {
         let loader = new Loader();
         for (let i in messages){
             cur = messages[i];
-            if(cur.type === 'm.room.member'){
-                await loader.loadMembershipEvent(cur);
-            }
-            else if(cur.type === 'm.room.message'){
-                await loader.loadMessage(cur);
-            }
+            await loader.loadEventEntrypoint(cur);
         }
     }
 }
