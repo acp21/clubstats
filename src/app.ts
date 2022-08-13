@@ -8,6 +8,9 @@ import { createCommandParser } from "./command_controller"
 import { startServer } from "./server";
 import { Command } from "commander";
 
+require('source-map-support').install();
+
+
 // Global program variable that is used to parse command throughout server
 export const program: Command = createCommandParser();
 export const config: Configuration = new Configuration();

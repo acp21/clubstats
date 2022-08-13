@@ -51,6 +51,14 @@ export function createCommandParser(): Command{
             console.log(`counting countable ${countable}`);
         });
     
+    // TODO: Add more details to these commands
+    program.command("swearjar")
+        .description("Calculates how naughty someone is ;)");
+    
+    program.command("markov")
+        .description("Generates a markov chain based on a users chat logs");
+
+    
     // TODO: Ensure these debug commands have access restriction
     program.command("debug")
         .description("A suite of debug and admin tools for the clubstats server")

@@ -10,9 +10,9 @@ export class Load extends AdminCommand {
         this.file = file;
     }
 
-    public run(): void{
+    public async run(): Promise<void>{
         super.run()
         // TODO: Update load data to take file and use new query system
-        loadData()
+       await loadData(this.file)
     }
 }

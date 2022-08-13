@@ -3,11 +3,15 @@ import { conn } from './app';
 
 const fs = require('fs');
 
-let rawdata = fs.readFileSync('full.json');
-let data = JSON.parse(rawdata);
-var messages = data.messages
 
-export async function loadData(){
+
+
+export async function loadData(path: string){
+
+    let rawdata = fs.readFileSync(path);
+    let data = JSON.parse(rawdata);
+    var messages = data.messages
+
 
     var cur;
     var type;
@@ -22,7 +26,7 @@ export async function loadData(){
         type = cur.type;
     
         foundEventID = await conn.findMessage(cur.event_id.split(':', 1)[0]);
-        // console.log(cur.content.body)
+        console.log(cur)
 
         // Skip if event has already been loaded
         if(foundEventID.getJson().eventID){
@@ -33,9 +37,9 @@ export async function loadData(){
         console.log('Processing message');
 
         // Handle member events
-        if(type == 'm.room.member'){
+        if(type === 'm.room.member'){
             foundUser = await conn.findUser(cur.user_id.split(':', 1)[0])
-            
+            console.log("THIS IS A ROOM EVENT");
             // Add event if user already stored
             if(foundUser.getJson().user.length > 0){
                 let newEvent: object = {
@@ -69,7 +73,7 @@ export async function loadData(){
         
         // If event is message, store that with proper user
         else if(type === 'm.room.message'){
-            foundUser = await conn.findUser(cur.user_id.split(':', 1)[0]);
+            foundUser = await conn.findUser(cur.sender.split(':', 1)[0]);
             uid = foundUser.getJson().user[0].uid;
             
             var newMessage = {
