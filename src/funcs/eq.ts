@@ -1,21 +1,26 @@
 import { Func } from "./funcs";
 import { FuncUsage } from "./funcs";
 import { Predicate } from "../queries/predicate";
-export class eq extends Func{
+
+export class Eq extends Func{
 
     comparator: string | number
-    predicate: Predicate
+    predicate: string
 
 
-    constructor(usage: FuncUsage, predicate: Predicate, comparator: string | number){
+    constructor(usage: FuncUsage, predicate: string, comparator: string | number){
         super(usage);
         this.predicate = predicate;
         this.comparator = comparator;
-        this.definition = 'eq:'
+        this.definition = 'eq'
     }
 
     build(): void {
-        super.build()
-        
+        super.build()        
+    }
+
+    override buildUnique(): void {
+        // this.body += this.definition;
+        this.body += '(' + this.predicate + ', ' + this.comparator
     }
 }

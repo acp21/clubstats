@@ -33,7 +33,9 @@ export abstract class Func {
     // TODO: Set a method to autodefine this
     type: FuncType | null = null;
     usage: FuncUsage;
+    // Body of the function to be built upon
     body: string = '';
+    // Defining word of function (has, eq, etc...)
     definition: string = ''
 
     constructor(usage: FuncUsage){
