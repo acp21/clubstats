@@ -1,5 +1,4 @@
 import { AdminCommand } from "./subcommand"
-import { loadData } from "../dataload"
 import { Loader } from "../loader";
 
 const fs = require('fs');
@@ -10,8 +9,9 @@ export class Load extends AdminCommand {
     file: string
     
 
-    constructor(name: string, file: string){
-        super(name);
+    constructor(file: string){
+        super();
+        this.cmdName = 'load';
         this.file = file;
     }
 

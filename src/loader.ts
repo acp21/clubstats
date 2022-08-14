@@ -45,6 +45,14 @@ export class Loader {
         }
     }
 
+    private async loadBotCall(event: any){
+        let botMap = {
+            '!': 'rustix',
+            '#': 'fish',
+            '$': 'ccawmu',
+        };
+    }
+
     private async loadMembershipEvent(event: any){
 
     }

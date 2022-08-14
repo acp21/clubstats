@@ -63,6 +63,8 @@ export function createCommandParser(): Command{
     program.command("markov")
         .description("Generates a markov chain based on a users chat logs");
 
+    program.command("alias")
+        .description("Register aliases for user IDs");
     
     // TODO: Ensure these debug commands have access restriction
     program.command("debug")
@@ -92,7 +94,7 @@ export function createCommandParser(): Command{
         .argument("<file>", "File path to the JSON file to read from")
         .action(async (file) => {
             console.log("Loading from file %s", file);
-            let load = new Load("load", file);
+            let load = new Load(file);
             await load.run()
         });
 
