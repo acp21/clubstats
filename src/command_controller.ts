@@ -1,6 +1,11 @@
 import { Command } from "commander";
-import { config } from "./app";
+import { config, conn } from "./app";
 import { Load } from "./commands/load"
+import { Has } from "./funcs/has";
+import { FuncUsage } from "./funcs/funcs";
+import { Eq } from "./funcs/eq";
+import { Query } from "./queries/query";
+import { Predicate } from "./queries/predicate";
 
 export function createCommandParser(): Command{
     const program: Command = new Command();
@@ -64,7 +69,7 @@ export function createCommandParser(): Command{
         .description("A suite of debug and admin tools for the clubstats server")
         .argument("<subcommand>", "The subcommand to run")
         .action((subcommand) => {
-            console.log(`running debug subcommand ${subcommand}`);
+            console.log("running debug");
         });
 
     // TODO: Change this to actually update the config.json file

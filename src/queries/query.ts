@@ -58,13 +58,22 @@ export class Query {
 
 
     buildQuery(){
-        this.body += QUERY_START;
-        
+        this.body += this.name + '(';
+        this.body += this.root_func.getBody() + ')';
+        this.body += '{';
+        //Include predicates below
+        this.predicates.forEach((pred) => {
+            this.body += pred.name + '\n';
+        })
+        this.body += '}}';        
     }
 
     // Return raw body of query
     getBody(){
         return this.body;
+    }
+    print(){
+        console.log(this.body);
     }
 
     // Add a predicate to this query
