@@ -54,10 +54,10 @@ export class Loader {
     async loadEventEntrypoint(event: any){
         console.log(event)
         if(event.type === 'm.room.member'){
-            this.loadMembershipEvent(event);
+            await this.loadMembershipEvent(event);
         }
         else if(event.type === 'm.room.message'){
-            this.loadMessageEvent(event);
+            await this.loadMessageEvent(event);
         }
     }
 
