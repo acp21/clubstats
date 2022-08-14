@@ -44,8 +44,18 @@ export abstract class Func {
         return this.body;
     }
 
+    print(){
+        console.log(this.body);
+    }
+
     // Build up to function arguments
     build(){
+        this.buildSharedStart();
+        this.buildUnique();
+        this.buildSharedEnd();
+    }
+
+    private buildSharedStart(){
         switch(this.usage){
             case FuncUsage.ROOT:
                 this.body += FuncBase.ROOT_BASE;
@@ -59,5 +69,13 @@ export abstract class Func {
         }
         this.body += this.definition;
         // this.build()
+    }
+    private buildSharedEnd(){
+        this.body += ')';
+    }
+
+    // This is an "Abstract Function" that should be overriden in each child class
+    buildUnique(){
+        console.log("This should always be overwritten");
     }
 }
