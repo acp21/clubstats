@@ -12,7 +12,7 @@ export class Count extends CalculableCommand {
     }
 
     public async run(): Promise<void> {
-        let func: Eq = new Eq(FuncUsage.ROOT, "userName", "alu");
+        let func: Eq = new Eq(FuncUsage.ROOT, "userName", "$USER");
         let query: Query = new Query("count", func);
         console.log("QUERY BODY: " + query.getBody())
         let res: dgraph.Response = await query.run();
