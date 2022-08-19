@@ -8,7 +8,7 @@ export abstract class Subcommand {
     }
 }
 
-export abstract class CalculableCommand extends Subcommand {
+export abstract class TrackableCommand extends Subcommand {
     // Specifies to run on all available data
     everything: boolean;
     users: Array<string> | undefined;
@@ -23,6 +23,10 @@ export abstract class CalculableCommand extends Subcommand {
         this.start_date = start_date
         this.end_date = end_date
         this.everything = everything
+    }
+
+    public run(): void {
+        
     }
 
 }

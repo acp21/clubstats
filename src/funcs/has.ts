@@ -11,7 +11,8 @@ export class Has extends Func{
         this.definition = 'has';
     }
 
-    override buildUnique(): void {
-        this.body += '(' + this.predicate;
+    protected override buildUnique(out: string): string {
+        out += '(' + this.predicate;
+        return out;
     }
 }

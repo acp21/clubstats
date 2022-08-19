@@ -1,4 +1,4 @@
-import { CalculableCommand } from "./subcommand"
+import { TrackableCommand } from "./subcommand"
 import { Query } from "../queries/query";
 import { Eq } from "../funcs/eq";
 import { FuncUsage } from "../funcs/funcs";
@@ -6,7 +6,7 @@ import { DgraphClient } from "dgraph-js";
 import dgraph from "dgraph-js";
 import { Predicate } from "../queries/predicate";
 
-export class Count extends CalculableCommand {
+export class Count extends TrackableCommand {
     constructor(){
         super()
         this.cmdName = 'count';

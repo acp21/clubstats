@@ -42,42 +42,47 @@ export abstract class Func {
         this.usage = usage;
     }
 
-    getBody(){
-        return this.body;
+    public getBody(){
+        return this.build();
     }
 
-    print(){
+    public print(){
         console.log(this.body);
     }
 
     // Build up to function arguments
-    build(){
-        this.buildSharedStart();
-        this.buildUnique();
-        this.buildSharedEnd();
+    protected build(): string{
+        let out: string = '';
+        out = this.buildSharedStart(out);
+        out = this.buildUnique(out);
+        out = this.buildSharedEnd(out);
+        return out;
     }
 
-    private buildSharedStart(){
+    private buildSharedStart(out: string): string{
         switch(this.usage){
             case FuncUsage.ROOT:
-                this.body += FuncBase.ROOT_BASE;
+                out += FuncBase.ROOT_BASE;
                 break;
             case FuncUsage.FILTER:
-                this.body += FuncBase.FILTER_BASE;
+                out += FuncBase.FILTER_BASE;
                 break;
             default:
                 console.log("Error: Non expected FuncUsage");
-                return
+                //TODO: Find a better way to handle this
+                return '';
         }
-        this.body += this.definition;
-        // this.build()
+        out += this.definition;
+        return out;
     }
-    private buildSharedEnd(){
-        this.body += ')';
+    protected buildSharedEnd(out: string): string{
+        out += ')';
+        return out
     }
 
     // This is an "Abstract Function" that should be overriden in each child class
-    buildUnique(){
+    protected buildUnique(out: string): string{
         console.log("This should always be overwritten");
+        return out
     }
 }

@@ -45,14 +45,13 @@ export class Query {
     name: string;
     predicates: Array<Predicate> = []
     root_func: Func;
-    root_directive: null;
+    root_directives: Array<Func> = [];
 
 
-    constructor(name: string, root_func: Func, root_directive = null, vars = null){
+    constructor(name: string, root_func: Func, vars = null){
         this.name = name;
         this.body = QUERY_START;
         this.root_func = root_func;
-        this.root_directive = root_directive;
         this.vars = vars;
     }
 
@@ -61,7 +60,6 @@ export class Query {
         let out: string = '';
         out += QUERY_START;
         out += this.name + '(';
-        this.root_func.build();
         out += this.root_func.getBody() + ')';
         out += '{';
         //Include predicates below
@@ -89,6 +87,10 @@ export class Query {
     // Add a predicate to this query
     addPredicate(predicate: Predicate){
         this.predicates.push(predicate);
+    }
+
+    addDirective(directive: Func){
+        this.root_directives.push(directive);
     }
 
 }

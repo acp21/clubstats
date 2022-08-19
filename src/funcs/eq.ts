@@ -15,12 +15,13 @@ export class Eq extends Func{
         this.definition = 'eq'
     }
 
-    build(): void {
-        super.build()        
+    build(): string {
+        return super.build()
     }
 
-    override buildUnique(): void {
+    protected override buildUnique(out: string): string {
         // this.body += this.definition;
-        this.body += '(' + this.predicate + ', ' + this.comparator
+        out += '(' + this.predicate + ', ' + this.comparator;
+        return out;
     }
 }
