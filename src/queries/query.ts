@@ -1,6 +1,7 @@
 import { Txn } from "dgraph-js";
 import { Predicate } from "./predicate";
 import { Func } from "../funcs/funcs";
+import { conn } from "../app";
 
 // Consant strings to build queries out of
 
@@ -38,7 +39,7 @@ export class Query {
 
     vars: JSON | null
     // Transaction object from dgraph client
-    txn: Txn
+    // txn: Txn
     private body: string
     
     name: string;
@@ -47,8 +48,7 @@ export class Query {
     root_directive: null;
 
 
-    constructor(txn: Txn, name: string, root_func: Func, root_directive = null, vars = null){
-        this.txn = txn;
+    constructor(name: string, root_func: Func, root_directive = null, vars = null){
         this.name = name;
         this.body = QUERY_START;
         this.root_func = root_func;
@@ -63,9 +63,15 @@ export class Query {
         this.body += '{';
         //Include predicates below
         this.predicates.forEach((pred) => {
-            this.body += pred.name + '\n';
+            this.body += pred.build() + '\n';
         })
         this.body += '}}';        
+    }
+
+    async run(){
+        let txn: Txn = conn.client.newTxn()
+        this.buildQuery();
+        return await conn.runQuery(this.body)
     }
 
     // Return raw body of query

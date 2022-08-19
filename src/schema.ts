@@ -13,6 +13,15 @@ function messageSchema(conn: Connection){
                     `
 }
 
+function userNode(conn: Connection){
+    const schema = `type User = {
+        nodeType
+        joinDate
+        username
+    } .`
+    conn.updateSchema(schema);
+}
+
 export async function loadSchemas(conn: Connection){
     // All schema that will be shared between nodes initialized here
     const sharedSchema = `nodeType: string @index(exact) .
@@ -20,5 +29,6 @@ export async function loadSchemas(conn: Connection){
                           eventDate: datetime @index(day) .`;
     conn.updateSchema(sharedSchema);          
     userSchema(conn);
+    // userNode(conn);
     console.log("Schemas updated.");
 }

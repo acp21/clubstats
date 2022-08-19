@@ -51,6 +51,8 @@ export class Loader {
             '#': 'fish',
             '$': 'ccawmu',
         };
+
+        
     }
 
     private async loadMembershipEvent(event: any){

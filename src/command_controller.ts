@@ -7,6 +7,8 @@ import { Eq } from "./funcs/eq";
 import { Query } from "./queries/query";
 import { Predicate } from "./queries/predicate";
 
+import { Count } from "./commands/count";
+
 export function createCommandParser(): Command{
     const program: Command = new Command();
 
@@ -54,6 +56,8 @@ export function createCommandParser(): Command{
         .argument("<calculable>", "Define item to count.")
         .action((countable) => {
             console.log(`counting countable ${countable}`);
+            let count = new Count();
+            count.run();
         });
     
     // TODO: Add more details to these commands

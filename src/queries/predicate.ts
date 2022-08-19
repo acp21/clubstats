@@ -8,4 +8,13 @@ export class Predicate {
         this.name = name;
         this.modifier = modifier;
     }
+
+    build(){
+        if(this.modifier == undefined){
+            return this.name;
+        }
+        else{
+            return this.modifier + '(' + this.name + ')';
+        }
+    }
 }
