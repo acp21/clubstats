@@ -60,17 +60,17 @@ export abstract class Func {
     }
 
     private buildSharedStart(out: string): string{
-        switch(this.usage){
-            case FuncUsage.ROOT:
-                out += FuncBase.ROOT_BASE;
-                break;
-            case FuncUsage.FILTER:
-                out += FuncBase.FILTER_BASE;
-                break;
-            default:
-                console.log("Error: Non expected FuncUsage");
-                //TODO: Find a better way to handle this
-                return '';
+        // switch(this.usage){
+            // case FuncUsage.ROOT:
+                // out += FuncBase.ROOT_BASE;
+                // break;
+            // default:
+                // console.log("Error: Non expected FuncUsage");
+                // TODO: Find a better way to handle this
+                // return '';
+        // }
+        if(this.usage == FuncUsage.ROOT){
+            out += FuncBase.ROOT_BASE;
         }
         out += this.definition;
         return out;

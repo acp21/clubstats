@@ -45,7 +45,7 @@ export class Query {
     name: string;
     predicates: Array<Predicate> = []
     root_func: Func;
-    root_directives: Array<Func> = [];
+    root_filters: Array<Func> = [];
 
 
     constructor(name: string, root_func: Func, vars = null){
@@ -61,6 +61,20 @@ export class Query {
         out += QUERY_START;
         out += this.name + '(';
         out += this.root_func.getBody() + ')';
+        // Using length because empty arrays are truthy in JS
+        if(this.root_filters.length){
+            // TODO: Get rid of magic numbers
+            out += '@filter('
+
+        }
+        this.root_filters.forEach((filter, i) => {
+            out += filter.getBody();
+            if(i != this.root_filters.length - 1){
+                out += ' AND ';
+            }
+            
+        });
+        out += ')';
         out += '{';
         //Include predicates below
         this.predicates.forEach((pred) => {
@@ -90,7 +104,7 @@ export class Query {
     }
 
     addDirective(directive: Func){
-        this.root_directives.push(directive);
+        this.root_filters.push(directive);
     }
 
 }
