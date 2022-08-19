@@ -1,4 +1,5 @@
 {
-    "endpoint": "localhost:9080",
-    "has_remote": true
+    "endpoint": "",
+    "has_remote": true,
+    "homeserver": ""
 }
