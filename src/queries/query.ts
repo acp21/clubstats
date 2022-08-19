@@ -57,15 +57,19 @@ export class Query {
     }
 
 
-    buildQuery(){
-        this.body += this.name + '(';
-        this.body += this.root_func.getBody() + ')';
-        this.body += '{';
+    private buildQuery(){
+        let out: string = '';
+        out += QUERY_START;
+        out += this.name + '(';
+        this.root_func.build();
+        out += this.root_func.getBody() + ')';
+        out += '{';
         //Include predicates below
         this.predicates.forEach((pred) => {
-            this.body += pred.build() + '\n';
+            out += pred.build() + '\n';
         })
-        this.body += '}}';        
+        out += '}}';
+        return out;
     }
 
     async run(){
@@ -76,10 +80,10 @@ export class Query {
 
     // Return raw body of query
     getBody(){
-        return this.body;
+        return this.buildQuery();
     }
     print(){
-        console.log(this.body);
+        console.log(this.getBody());
     }
 
     // Add a predicate to this query
