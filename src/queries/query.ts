@@ -72,9 +72,11 @@ export class Query {
             if(i != this.root_filters.length - 1){
                 out += ' OR ';
             }
+            else{
+                out += ')';
+            }
             
         });
-        out += ')';
         out += '{';
         //Include predicates below
         this.predicates.forEach((pred) => {

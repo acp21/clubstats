@@ -22,7 +22,7 @@ export abstract class TrackableCommand extends Subcommand {
     rooms: Array<string> | undefined;
     start_date: string | undefined;
     end_date: string | undefined;
-    
+    query: Query | undefined;
 
     constructor(users?: Array<string>, rooms?: Array<string>, start_date?: string, end_date?: string, everything = false){
         super();
@@ -33,30 +33,22 @@ export abstract class TrackableCommand extends Subcommand {
         this.everything = everything
     }
 
-    public run(): void { 
-        let query: Query = this.runUniqueStart();
-        query = this.runShared(query);
-        this.runUniqueEnd(query);
+    public run(): void {
+        this.runShared()
+        this.runUnique()
     }
 
-    protected runUniqueStart(): Query {
+    protected runUnique() {
         console.log("this should be overriden");
-        let query: Query = new Query("", new Has(FuncUsage.ROOT,""));
-        return query;
     }
 
-    protected runUniqueEnd(query: Query): Query {
-        return query;
-    }
-
-    private runShared(query: Query): Query {
+    private runShared() {
         // let filters: Array<Func> = []
         let func: Eq;
         this.users?.forEach((user) =>{
             func = new Eq(FuncUsage.FILTER, "username", stringToUsername(user));
-            query.root_filters.push(func);
+            this.query?.root_filters.push(func);
         });
-        return query
     }
 
 }

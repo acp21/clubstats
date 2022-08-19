@@ -56,7 +56,7 @@ export function createCommandParser(): Command{
         .argument("<calculable>", "Define item to count.")
         .action((countable) => {
             console.log(`counting countable ${countable}`);
-            let count = new Count();
+            let count = new Count("messages");
             count.run();
         });
     
