@@ -70,7 +70,7 @@ export class Query {
         this.root_filters.forEach((filter, i) => {
             out += filter.getBody();
             if(i != this.root_filters.length - 1){
-                out += ' AND ';
+                out += ' OR ';
             }
             
         });

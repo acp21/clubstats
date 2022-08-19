@@ -1,4 +1,8 @@
-import { Func } from "../funcs/funcs";
+import { Func, FuncUsage } from "../funcs/funcs";
+import { Eq } from "../funcs/eq";
+import { Has } from "../funcs/has";
+import { stringToUsername } from "../useful";
+import { Query } from "../queries/query";
 
 
 export abstract class Subcommand {
@@ -18,6 +22,7 @@ export abstract class TrackableCommand extends Subcommand {
     rooms: Array<string> | undefined;
     start_date: string | undefined;
     end_date: string | undefined;
+    
 
     constructor(users?: Array<string>, rooms?: Array<string>, start_date?: string, end_date?: string, everything = false){
         super();
@@ -28,8 +33,30 @@ export abstract class TrackableCommand extends Subcommand {
         this.everything = everything
     }
 
-    public run(): void {
-        let filters: Array<Func> = []        
+    public run(): void { 
+        let query: Query = this.runUniqueStart();
+        query = this.runShared(query);
+        this.runUniqueEnd(query);
+    }
+
+    protected runUniqueStart(): Query {
+        console.log("this should be overriden");
+        let query: Query = new Query("", new Has(FuncUsage.ROOT,""));
+        return query;
+    }
+
+    protected runUniqueEnd(query: Query): Query {
+        return query;
+    }
+
+    private runShared(query: Query): Query {
+        // let filters: Array<Func> = []
+        let func: Eq;
+        this.users?.forEach((user) =>{
+            func = new Eq(FuncUsage.FILTER, "username", stringToUsername(user));
+            query.root_filters.push(func);
+        });
+        return query
     }
 
 }

@@ -8,9 +8,14 @@ import { Predicate } from "../queries/predicate";
 import { Has } from "../funcs/has";
 
 export class Count extends TrackableCommand {
-    constructor(){
+    // The trackable group to count
+    // TODO: Convert this trackable string to an enum system
+    trackable: string
+
+    constructor(trackable: string){
         super()
         this.cmdName = 'count';
+        this.trackable = trackable;
     }
 
     public async run(): Promise<void> {
@@ -27,6 +32,16 @@ export class Count extends TrackableCommand {
         // console.log(res.getJson())
         // console.log(res);
 
+    }
+
+    protected override async runUniqueEnd() {
+        let pred: Predicate = new Predicate("messages", "count");
+        let func: Has = new Has(FuncUsage.ROOT, this.trackable);
+        let query: Query = new Query("count", func);    
+    }
+
+    protected override runUniqueStart(): Query {
+        
     }
 
 } 
