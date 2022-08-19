@@ -1,3 +1,6 @@
+import { Func } from "../funcs/funcs";
+
+
 export abstract class Subcommand {
 
     cmdName: string = '';
@@ -26,7 +29,7 @@ export abstract class TrackableCommand extends Subcommand {
     }
 
     public run(): void {
-        
+        let filters: Array<Func> = []        
     }
 
 }

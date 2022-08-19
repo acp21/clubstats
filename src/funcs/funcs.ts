@@ -50,7 +50,10 @@ export abstract class Func {
         console.log(this.body);
     }
 
-    // Build up to function arguments
+    /**
+     * @brief contructs function and returns body string
+     * @returns string: body of function after construction
+     */
     protected build(): string{
         let out: string = '';
         out = this.buildSharedStart(out);
@@ -60,21 +63,13 @@ export abstract class Func {
     }
 
     private buildSharedStart(out: string): string{
-        // switch(this.usage){
-            // case FuncUsage.ROOT:
-                // out += FuncBase.ROOT_BASE;
-                // break;
-            // default:
-                // console.log("Error: Non expected FuncUsage");
-                // TODO: Find a better way to handle this
-                // return '';
-        // }
         if(this.usage == FuncUsage.ROOT){
             out += FuncBase.ROOT_BASE;
         }
         out += this.definition;
         return out;
     }
+    
     protected buildSharedEnd(out: string): string{
         out += ')';
         return out
