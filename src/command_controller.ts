@@ -53,10 +53,11 @@ export function createCommandParser(): Command{
     
     program.command("count")
         .description("Count the total amount of some item.")
-        .argument("<calculable>", "Define item to count.")
-        .action((countable) => {
-            console.log(`counting countable ${countable}`);
-            let count = new Count("messages");
+        .argument("<trackable>", "Define item to count.")
+        .argument("<user>", "user to count trackables of")
+        .action((trackable) => {
+            console.log(`counting countable ${trackable}`);
+            let count = new Count(trackable);
             count.run();
         });
     

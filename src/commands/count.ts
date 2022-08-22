@@ -36,7 +36,7 @@ export class Count extends TrackableCommand {
     // }
 
     protected override async runUnique() {
-        let pred: Predicate = new Predicate("messages", "count");
+        let pred: Predicate = new Predicate(this.trackable, "count");
         this.query?.addPredicate(pred);
         this.query?.print();
            

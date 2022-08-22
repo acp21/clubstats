@@ -3,6 +3,7 @@ import { Eq } from "../funcs/eq";
 import { Has } from "../funcs/has";
 import { stringToUsername } from "../useful";
 import { Query } from "../queries/query";
+import { config } from "../app";
 
 
 export abstract class Subcommand {
@@ -56,8 +57,13 @@ export abstract class TrackableCommand extends Subcommand {
 export abstract class AdminCommand extends Subcommand {
     public run(): void{
         // TODO: Implement safety checking here
-        super.run()
-        console.log("Ensuring that we verify user doing AdminCommand")
+        if(!config.allow_debug){
+            return
+        }
+        else{
+            super.run()
+            console.log("Ensuring that we verify user doing AdminCommand")
+        }
     }
 }
 

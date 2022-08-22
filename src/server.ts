@@ -1,11 +1,13 @@
 import { createServer, IncomingMessage, ServerResponse, Server } from "http";
 import { program } from "./app";
 import { Loader } from "./loader";
+import { createCommandParser } from "./command_controller";
 
 export function startServer(){
     const port = 5000;
     const host = 'localhost';
     let loader = new Loader();
+    let prog = createCommandParser()
 
     
 
@@ -25,7 +27,12 @@ export function startServer(){
                 });
                 req.on('end', () => {
                     // Log data once all received
-                    console.log(JSON.parse(command));
+                    let com: string = JSON.parse(command).command;
+                    let arr: Array<string> = com.split(' ');
+                    // let run = com.stringify(command);
+                    console.log(com)
+                    let tuple: Readonly<string[]> = arr;
+                    prog.parse(tuple, {from: 'user'});
                 })
 
                 res.end("Hit command");
