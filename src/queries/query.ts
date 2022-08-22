@@ -87,17 +87,17 @@ export class Query {
     }
 
     async run(){
-        let txn: Txn = conn.client.newTxn()
-        this.buildQuery();
-        return await conn.runQuery(this.body)
+        let txn: Txn = conn.client.newTxn();
+        return await conn.runQuery(this.buildQuery());
     }
 
     // Return raw body of query
-    getBody(){
+    protected getBody(){
         return this.buildQuery();
     }
+
     print(){
-        console.log(this.getBody());
+        console.log(this.buildQuery());
     }
 
     // Add a predicate to this query

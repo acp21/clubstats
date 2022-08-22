@@ -7,10 +7,7 @@ export function startServer(){
     const port = 5000;
     const host = 'localhost';
     let loader = new Loader();
-    let prog = createCommandParser()
-
     
-
     const requestListener = function (req: IncomingMessage, res: ServerResponse) {
         res.setHeader("Content-Type", "text/plain");
         // Set HTTP Code as 200 by default, only change if error occurs
@@ -32,7 +29,7 @@ export function startServer(){
                     // let run = com.stringify(command);
                     console.log(com)
                     let tuple: Readonly<string[]> = arr;
-                    prog.parse(tuple, {from: 'user'});
+                    program.parse(tuple, {from: 'user'});
                 })
 
                 res.end("Hit command");

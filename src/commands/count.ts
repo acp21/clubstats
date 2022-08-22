@@ -35,11 +35,20 @@ export class Count extends TrackableCommand {
 
     // }
 
-    protected override async runUnique() {
+    protected override async runUnique(): Promise<string> {
         let pred: Predicate = new Predicate(this.trackable, "count");
         this.query?.addPredicate(pred);
         this.query?.print();
-           
+        let res = await this.query?.run();
+        let json = res.getJson()
+        let totalCount: number = 0;
+        
+        // TODO: Find the proper type of this
+        json.count.forEach((element: any) => {
+            totalCount += element['count(messages)'];
+        })
+        let out = 'Total messages found for this set: ' + totalCount + '!';
+        return out;
     }
 
 } 

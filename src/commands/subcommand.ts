@@ -23,7 +23,8 @@ export abstract class TrackableCommand extends Subcommand {
     rooms: Array<string> | undefined;
     start_date: string | undefined;
     end_date: string | undefined;
-    query: Query | undefined;
+    query: Query = new Query("OVERRIDE", new Has(FuncUsage.ROOT, "OVVERRIDE"));
+    // TODO: Find some way to get rid of this placeholder query
 
     constructor(users?: Array<string>, rooms?: Array<string>, start_date?: string, end_date?: string, everything = false){
         super();
@@ -34,14 +35,13 @@ export abstract class TrackableCommand extends Subcommand {
         this.everything = everything
     }
 
-    public run(): void {
+    public async run() {
         this.runShared()
-        this.runUnique()
+        let ret = await this.runUnique()
+        return ret;
     }
 
-    protected runUnique() {
-        console.log("this should be overriden");
-    }
+    protected abstract runUnique(): Promise<string>;
 
     private runShared() {
         // let filters: Array<Func> = []
@@ -56,7 +56,7 @@ export abstract class TrackableCommand extends Subcommand {
 
 export abstract class AdminCommand extends Subcommand {
     public run(): void{
-        // TODO: Implement safety checking here
+        // TODO: Implement more safety checking here
         if(!config.allow_debug){
             return
         }
