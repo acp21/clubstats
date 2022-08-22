@@ -1,5 +1,6 @@
 {
-    "endpoint": "",
+    "endpoint": "localhost:9080",
     "has_remote": true,
-    "homeserver": ""
+    "homeserver": "cclub.cs.wmich.edu",
+    "allow_debug": false
 }
