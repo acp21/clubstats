@@ -2,10 +2,11 @@ import { createServer, IncomingMessage, ServerResponse, Server } from "http";
 import { program } from "./app";
 import { Loader } from "./loader";
 import { createCommandParser } from "./command_controller";
+import { config } from "./app";
 
 export function startServer(){
-    const port = 5000;
-    const host = 'localhost';
+    const port = config.port;
+    const host = config.host;
     let loader = new Loader();
     
     const requestListener = function (req: IncomingMessage, res: ServerResponse) {

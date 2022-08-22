@@ -48,6 +48,7 @@ export class Count extends TrackableCommand {
             totalCount += element['count(messages)'];
         })
         let out = 'Total messages found for this set: ' + totalCount + '!';
+        console.log(out);
         return out;
     }
 
