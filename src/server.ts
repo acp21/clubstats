@@ -1,8 +1,9 @@
 import { createServer, IncomingMessage, ServerResponse, Server } from "http";
 import { program } from "./app";
 import { Loader } from "./loader";
-import { createCommandParser } from "./command_controller";
 import { config } from "./app";
+
+import { ret_string } from "./command_controller";
 
 export function startServer(){
     const port = config.port;
@@ -23,17 +24,19 @@ export function startServer(){
                 req.on('data', chunk => {
                     command += chunk;
                 });
-                req.on('end', () => {
+                req.on('end', async () => {
                     // Log data once all received
                     let com: string = JSON.parse(command).command;
                     let arr: Array<string> = com.split(' ');
                     // let run = com.stringify(command);
                     console.log(com)
                     let tuple: Readonly<string[]> = arr;
-                    program.parse(tuple, {from: 'user'});
+                    await program.parseAsync(tuple, {from: 'user'})
+                    res.write(ret_string);
+                    res.end();
                 })
 
-                res.end("Hit command");
+                res.end(ret_string);
                 break
             // Add a new node to the server
             case "/new":

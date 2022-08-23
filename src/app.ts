@@ -29,7 +29,7 @@ async function main() {
         startServer();
     }
     else{
-        program.parse();
+        program.parseAsync();
     }
     // let load 2= new Load("load", "full.json");
     // await load.run();

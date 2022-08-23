@@ -9,6 +9,8 @@ import { Predicate } from "./queries/predicate";
 
 import { Count } from "./commands/count";
 
+export let ret_string: any
+
 export function createCommandParser(): Command{
     const program: Command = new Command();
 
@@ -55,10 +57,10 @@ export function createCommandParser(): Command{
         .description("Count the total amount of some item.")
         .argument("<trackable>", "Define item to count.")
         .argument("<user>", "user to count trackables of")
-        .action((trackable) => {
+        .action(async (trackable) => {
             console.log(`counting countable ${trackable}`);
             let count = new Count(trackable);
-            count.run();
+            ret_string = await count.run();
         });
     
     // TODO: Add more details to these commands
