@@ -8,6 +8,8 @@ import { createCommandParser } from "./command_controller"
 import { startServer } from "./server";
 import { Command } from "commander";
 
+import { buildExpresss } from './express'
+
 require('source-map-support').install();
 
 
@@ -18,7 +20,12 @@ export const conn: Connection = new Connection(config.endpoint);
 
 async function main() {
 
+
+
     console.log(config);
+
+    buildExpresss();
+
     if(config.has_remote){
         console.log("Attempting to connect to the database.")
         // conn = new Connection('localhost:9080');
