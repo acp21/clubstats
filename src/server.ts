@@ -28,15 +28,23 @@ export function startServer(){
                     // Log data once all received
                     let com: string = JSON.parse(command).command;
                     let arr: Array<string> = com.split(' ');
+                    // TODO: Fix this mess
+                    // TODO: Probably convert this whole thing to an express server
+                    if(arr[0] === 'read'){
+                        res.write(ret_string);
+                    }
+                    else{
+                        res.write('Loaded results from' + arr[0] + ', use `$clubstats read` to read them.');
+                    }
                     // let run = com.stringify(command);
                     console.log(com)
                     let tuple: Readonly<string[]> = arr;
-                    await program.parseAsync(tuple, {from: 'user'})
+                    await program.parseAsync(tuple, {from: 'user', res: res})
                     res.write(ret_string);
-                    res.end();
+                    // res.end();
                 })
 
-                res.end(ret_string);
+                res.end();
                 break
             // Add a new node to the server
             case "/new":

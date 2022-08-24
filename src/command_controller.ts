@@ -57,15 +57,21 @@ export function createCommandParser(): Command{
         .description("Count the total amount of some item.")
         .argument("<trackable>", "Define item to count.")
         .argument("<user>", "user to count trackables of")
-        .action(async (trackable) => {
-            console.log(`counting countable ${trackable}`);
-            let count = new Count(trackable);
+        .action(async function (trackable, user) {
+            let users: Array<string> = [user];
+            console.log(`counting countable ${trackable} for user ${user}`);
+            let count = new Count(trackable, users);
             ret_string = await count.run();
         });
+
+    // TODO: Remove the need to do this
+    program.command("read")
+        .description("Read the loaded value in the return string")
     
     // TODO: Add more details to these commands
     program.command("swearjar")
-        .description("Calculates how naughty someone is ;)");
+        .description("Calculates how naughty someone is ;)")
+        // .on();
     
     program.command("markov")
         .description("Generates a markov chain based on a users chat logs");

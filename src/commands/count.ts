@@ -12,28 +12,12 @@ export class Count extends TrackableCommand {
     // TODO: Convert this trackable string to an enum system
     trackable: string
 
-    constructor(trackable: string){
-        super()
+    constructor(trackable: string, users?: Array<string>){
+        super(users)
         this.cmdName = 'count';
         this.trackable = trackable;
         this.query = new Query(this.cmdName, new Has(FuncUsage.ROOT, this.trackable));
     }
-
-    // public async run(): Promise<void> {
-    //     let func: Eq = new Eq(FuncUsage.ROOT, "userName", "$USER");
-    //     let query: Query = new Query("count", func);
-    //     let pred: Predicate = new Predicate("messages", "count");
-    //     let filter: Has = new Has(FuncUsage.FILTER, "username");
-    //     let filter2: Has = new Has(FuncUsage.FILTER, "something");
-    //     query.addPredicate(pred);
-    //     query.addDirective(filter);
-    //     query.addDirective(filter2);
-    //     console.log("QUERY BODY: " + query.getBody())
-    //     // let res: dgraph.Response = await query.run();
-    //     // console.log(res.getJson())
-    //     // console.log(res);
-
-    // }
 
     protected override async runUnique(): Promise<string> {
         let pred: Predicate = new Predicate(this.trackable, "count");
