@@ -1,11 +1,14 @@
 import express, { Request, Response, NextFunction } from 'express';
 
+import { Loader } from './loader';
 import { program } from './app';
+import { config } from './app';
 import { ret_string } from './command_controller';
 
 export function buildExpresss(){
     const app = express();
-    const port = 3000;
+    const port = config.port;
+    let loader: Loader = new Loader();
 
     app.use(express.json());
 
@@ -15,12 +18,14 @@ export function buildExpresss(){
         let arr: Array<string> = command.split(' ');
         let tuple: Readonly<string[]> = arr;
 
-        await program.parseAsync(tuple, {from: 'user', res: res})
+        await program.parseAsync(tuple, {from: 'user'})
         res.send(ret_string);
     })
 
     app.post('/new', (req: Request, res: Response) => {
         console.log(req.body);
+        res.send("Hit new");
+        loader.loadEventEntrypoint(req.body);
         
     })
 

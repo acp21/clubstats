@@ -24,7 +24,6 @@ async function main() {
 
     console.log(config);
 
-    buildExpresss();
 
     if(config.has_remote){
         console.log("Attempting to connect to the database.")
@@ -33,7 +32,8 @@ async function main() {
     }
     
     if(process.argv.length < 3){
-        startServer();
+        // startServer();
+        buildExpresss();
     }
     else{
         program.parseAsync();

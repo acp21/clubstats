@@ -39,7 +39,7 @@ export function startServer(){
                     // let run = com.stringify(command);
                     console.log(com)
                     let tuple: Readonly<string[]> = arr;
-                    await program.parseAsync(tuple, {from: 'user', res: res})
+                    await program.parseAsync(tuple, {from: 'user'})
                     res.write(ret_string);
                     // res.end();
                 })
