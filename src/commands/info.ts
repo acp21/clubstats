@@ -4,6 +4,7 @@ import { Eq } from "../funcs/eq";
 import { FuncUsage } from "../funcs/funcs";
 import { Predicate } from "../queries/predicate";
 import { stringToUsername } from "../useful";
+import { getDayDiff } from "../useful";
 
 export class Info extends TrackableCommand {
 
@@ -26,9 +27,11 @@ export class Info extends TrackableCommand {
         let data = json['info'][0];
         let messages: number = data['count(messages)'];
         let joined: Date = new Date(data['joinDate']);
+        let diff: number = getDayDiff(joined, new Date());
         let out: string = `Info for User ${this.users}
         Messages: ${messages}
-        Joined: ${joined.getDate}`;
+        Joined: ${joined.toString()}
+        Average Messages/Day: ${messages / diff}`;
         console.log(out);
         return out;
     }
