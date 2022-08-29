@@ -1,4 +1,4 @@
-import { Command } from "commander";
+import { Command, CommanderError } from "commander";
 import { config, conn } from "./app";
 import { Load } from "./commands/load"
 import { Has } from "./funcs/has";
@@ -14,6 +14,13 @@ export let ret_string: any
 
 export function createCommandParser(): Command{
     const program: Command = new Command();
+    
+    program.exitOverride((err: CommanderError) => {
+        console.log(err.code)
+        // return
+    });
+
+    program.configureOutput()
 
     // Create base CLI program
     program

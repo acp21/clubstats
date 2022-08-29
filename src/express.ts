@@ -18,7 +18,12 @@ export function buildExpresss(){
         let arr: Array<string> = command.split(' ');
         let tuple: Readonly<string[]> = arr;
 
-        await program.parseAsync(tuple, {from: 'user'})
+        try{
+            await program.parseAsync(tuple, {from: 'user'});
+        }
+        catch(err){
+            console.log(err);
+        }
         res.send(ret_string);
     })
 
