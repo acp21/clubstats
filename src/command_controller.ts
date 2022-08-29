@@ -8,6 +8,7 @@ import { Query } from "./queries/query";
 import { Predicate } from "./queries/predicate";
 
 import { Count } from "./commands/count";
+import { Info } from "./commands/info";
 
 export let ret_string: any
 
@@ -32,9 +33,10 @@ export function createCommandParser(): Command{
         .option("-m, --member", "Run command on a user")
         .option("-c, --channel", "Run command on a room")
         .option("-w, --word", "Get info on a single word instead")
-        .argument("<item>", "Item to print info about")
-        .action((item) => {
-            console.log("info");
+        .argument("<user>", "Item to print info about")
+        .action(async (user) => {
+            let info = new Info(user);
+            ret_string = await info.run();
         })
     
     program.command("extremes")
@@ -42,14 +44,14 @@ export function createCommandParser(): Command{
         .argument("<calculable>", "Calculable to find min/max of")
         .option("-t, --top", "Find user with maximum of any calculable")
         .option("-b, --bottom", "Find user with minimum of any calculable")
-        .action((calculable) => {
+        .action((trackable) => {
             console.log("Extremes");
         });
     
     program.command("average")
         .description("Calculate the average of some calculable per time period")
         .argument("<calculable>", "Calculable to average")
-        .action((calculable) => {
+        .action((trackable) => {
             console.log("averaging calculable")
         });
     
@@ -65,8 +67,6 @@ export function createCommandParser(): Command{
         });
 
     // TODO: Remove the need to do this
-    program.command("read")
-        .description("Read the loaded value in the return string")
     
     // TODO: Add more details to these commands
     program.command("swearjar")

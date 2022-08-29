@@ -38,7 +38,7 @@ export class Loader {
             // Currently losing first message
             let newUser = {
                 nodeType: 'user',
-                joined: new Date('0').toISOString(),
+                joinDate: new Date().toISOString(),
                 username: sender
             };
             await conn.runMutation(newUser)
