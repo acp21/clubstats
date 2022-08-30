@@ -9,6 +9,7 @@ import { Predicate } from "./queries/predicate";
 
 import { Count } from "./commands/count";
 import { Info } from "./commands/info";
+import { WordMax } from "./commands/wordmax";
 
 export let ret_string: any
 
@@ -72,6 +73,15 @@ export function createCommandParser(): Command{
             let count = new Count(trackable, users);
             ret_string = await count.run();
         });
+    
+    // TODO: Probably change the wording from "word" to "term"
+    program.command("wordmax")
+        .description("Find the user that uses a word the most.")
+        .argument("<word>", "Word to find most user of")
+        .action(async (word) => {
+            let wordmax = new WordMax(word);
+            ret_string = await wordmax.run();
+        })
 
     // TODO: Remove the need to do this
     

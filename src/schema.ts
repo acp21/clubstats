@@ -9,7 +9,7 @@ function userSchema(conn: Connection){
 }
 
 function messageSchema(conn: Connection){
-    const schema = `messageBody: string .
+    const schema = `messageBody: string @index(term) .
                     `
 }
 

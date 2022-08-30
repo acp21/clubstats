@@ -4,6 +4,7 @@ export class Predicate {
     modifier: string | undefined
     // A predicate can represent an edge to another node by having it's own predicates
     children: Array<Predicate> | undefined
+    
 
     //TODO: Convert modifiers to enum system
 
