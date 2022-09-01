@@ -12,6 +12,8 @@ export function buildExpresss(){
 
     app.use(express.json());
 
+    // TODO: Add extra error handling to this, make sure server doesnt die
+
     app.get('/command', async (req: Request, res: Response) => {
         console.log(req.body);
         let command: string = req.body['command'];
