@@ -14,12 +14,11 @@ export function buildExpresss(){
 
     // TODO: Add extra error handling to this, make sure server doesnt die
 
-    app.get('/command', async (req: Request, res: Response) => {
-        console.log(req.body);
+    app.post('/command', async (req: Request, res: Response) => {
+        console.log('COMMAND: ' + req.body['command']);
         let command: string = req.body['command'];
         let arr: Array<string> = command.split(' ');
         let tuple: Readonly<string[]> = arr;
-
         try{
             await program.parseAsync(tuple, {from: 'user'});
         }
